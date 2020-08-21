@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+
+  </PropertyGroup>
+
+
+  <ItemGroup>
+    <PackageReference Include="Kentico.Kontent.Delivery.Abstractions" Version="14.0.0-rc2" GeneratePathProperty="true" PrivateAssets="all" />
+    <PackageReference Include="Kentico.Kontent.ModelGenerator.Core" Version="6.0.0-rc1" />
+    <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.7.0" />
+
+    <!-- Package the generator in the analyzer directory of the nuget package -->
+    <None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+    
+
+  </ItemGroup>
+
+
+  <PropertyGroup>
+    <GetTargetPathDependsOn>$(GetTargetPathDependsOn);GetDependencyTargetPaths</GetTargetPathDependsOn>
+  </PropertyGroup>
+
+  <Target Name="GetDependencyTargetPaths">
+    <ItemGroup>
+      <TargetPathWithTargetPlatformMoniker Include="$(PkgKentico_Kontent_Delivery_Abstractions)\lib\netstandard2.0\Kentico.Kontent.Delivery.Abstractions.dll" />
+    </ItemGroup>
+  </Target>
+
+
+</Project>
