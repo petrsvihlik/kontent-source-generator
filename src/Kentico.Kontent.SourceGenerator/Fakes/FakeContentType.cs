@@ -15,9 +15,9 @@ namespace Kentico.Kontent.SourceGenerator.Fakes
             Elements = elements.Select(d => new KeyValuePair<string, IContentElement>(d.Key, d.Value)).ToDictionary(k => k.Key, k => k.Value);
 
             // Initialize codenames
-            foreach (var element in Elements.Where(r => r.Value is FakeContentElement).Select(a => (Codename: a.Key, Element: (FakeContentElement)a.Value)))
+            foreach (var (Codename, Element) in Elements.Where(r => r.Value is FakeContentElement).Select(a => (Codename: a.Key, Element: (FakeContentElement)a.Value)))
             {
-                element.Element.Codename = element.Codename;
+                Element.Codename = Codename;
             }
         }
     }

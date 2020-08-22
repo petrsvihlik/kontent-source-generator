@@ -16,7 +16,10 @@ namespace Kentico.Kontent.SourceGenerator
 
         public void Output(string content, string fileName, bool overwriteExisting)
         {
-            _context.AddSource(fileName, SourceText.From(content, Encoding.UTF8));
+            if (overwriteExisting)
+            {
+                _context.AddSource(fileName, SourceText.From(content, Encoding.UTF8));
+            }
         }
     }
 }
