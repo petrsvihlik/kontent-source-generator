@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kentico.Kontent.SourceGener
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kentico.Kontent.SourceGenerator.Demo", "Kentico.Kontent.SourceGenerator.Demo\Kentico.Kontent.SourceGenerator.Demo.csproj", "{6D921693-FCC6-4895-84BD-494A70E7EFF5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kentico.Kontent.SourceGenerator.Tests", "Kentico.Kontent.SourceGenerator.Tests\Kentico.Kontent.SourceGenerator.Tests.csproj", "{503D1B07-E392-4792-84A4-7252824198E7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{6D921693-FCC6-4895-84BD-494A70E7EFF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D921693-FCC6-4895-84BD-494A70E7EFF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6D921693-FCC6-4895-84BD-494A70E7EFF5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{503D1B07-E392-4792-84A4-7252824198E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{503D1B07-E392-4792-84A4-7252824198E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{503D1B07-E392-4792-84A4-7252824198E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{503D1B07-E392-4792-84A4-7252824198E7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

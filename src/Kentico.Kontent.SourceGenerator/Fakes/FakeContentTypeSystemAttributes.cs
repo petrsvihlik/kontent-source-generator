@@ -3,7 +3,7 @@ using System;
 
 namespace Kentico.Kontent.SourceGenerator.Fakes
 {
-    class FakeContentTypeSystemAttributes : IContentTypeSystemAttributes
+    public class FakeContentTypeSystemAttributes : IContentTypeSystemAttributes
     {
         public string Codename { get; set; }
 

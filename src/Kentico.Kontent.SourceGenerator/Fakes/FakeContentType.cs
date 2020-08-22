@@ -1,19 +1,24 @@
 ﻿using Kentico.Kontent.Delivery.Abstractions;
-using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Kentico.Kontent.SourceGenerator.Fakes
 {
-    class FakeContentType : IContentType
+    public class FakeContentType : IContentType
     {
-        public IDictionary<string, IContentElement> Elements => new Dictionary<string, IContentElement>()
-        {
-            { "body_copy", new FakeContentElement("body_copy", "Body Copy", "rich_text") },
-            { "post_date", new FakeContentElement("post_date", "Post date", "date_time") },
-            { "price", new FakeContentElement("price", "Price", "number") },
-            { "metadata__twitter_image", new FakeContentElement("metadata__twitter_image", "Twitter image", "asset") }
-        };
+        public IDictionary<string, IContentElement> Elements { get; set; }
+        public IContentTypeSystemAttributes System { get; set; }
 
-        public IContentTypeSystemAttributes System => new FakeContentTypeSystemAttributes("article", Guid.NewGuid().ToString(), DateTime.Now, "Article");
+        public FakeContentType(Dictionary<string, FakeContentElement> elements, FakeContentTypeSystemAttributes system)
+        {
+            System = system;
+            Elements = elements.Select(d => new KeyValuePair<string, IContentElement>(d.Key, d.Value)).ToDictionary(k => k.Key, k => k.Value);
+
+            // Initialize codenames
+            foreach (var element in Elements.Where(r => r.Value is FakeContentElement).Select(a => (Codename: a.Key, Element: (FakeContentElement)a.Value)))
+            {
+                element.Element.Codename = element.Codename;
+            }
+        }
     }
 }

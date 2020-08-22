@@ -2,7 +2,7 @@
 
 namespace Kentico.Kontent.SourceGenerator.Fakes
 {
-    class FakeContentElement : IContentElement
+    public class FakeContentElement : IContentElement
     {
         public string Codename { get; set; }
 

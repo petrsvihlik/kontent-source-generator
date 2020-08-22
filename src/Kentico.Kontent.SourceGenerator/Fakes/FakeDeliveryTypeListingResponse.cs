@@ -1,15 +1,14 @@
 ﻿using Kentico.Kontent.Delivery.Abstractions;
-using System;
 using System.Collections.Generic;
 
 namespace Kentico.Kontent.SourceGenerator.Fakes
 {
-    class FakeDeliveryTypeListingResponse : IDeliveryTypeListingResponse
+    public class FakeDeliveryTypeListingResponse : IDeliveryTypeListingResponse
     {
-        public IList<IContentType> Types => new List<IContentType>() { new FakeContentType() };
+        public IList<IContentType> Types { get; set; }
 
-        public IApiResponse ApiResponse => throw new NotImplementedException();
+        public IApiResponse ApiResponse { get; set; }
 
-        public IPagination Pagination => throw new NotImplementedException();
+        public IPagination Pagination { get; set; }
     }
 }

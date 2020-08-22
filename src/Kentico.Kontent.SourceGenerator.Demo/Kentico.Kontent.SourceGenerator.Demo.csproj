@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Kentico.Kontent.Delivery.Abstractions" Version="14.0.0-rc2" />
+    <PackageReference Include="Kentico.Kontent.Delivery" Version="14.0.0-rc2" />
   </ItemGroup>
 
   <ItemGroup>

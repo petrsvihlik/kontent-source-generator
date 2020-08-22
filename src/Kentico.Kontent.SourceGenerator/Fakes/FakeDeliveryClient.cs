@@ -1,11 +1,14 @@
 ﻿using Kentico.Kontent.Delivery.Abstractions;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace Kentico.Kontent.SourceGenerator.Fakes
 {
-    class FakeDeliveryClient : IDeliveryClient
+    public class FakeDeliveryClient : IDeliveryClient
     {
         public Task<IDeliveryElementResponse> GetContentElementAsync(string contentTypeCodename, string contentElementCodename)
         {
@@ -42,9 +45,21 @@ namespace Kentico.Kontent.SourceGenerator.Fakes
             throw new NotImplementedException();
         }
 
-        public Task<IDeliveryTypeListingResponse> GetTypesAsync(IEnumerable<IQueryParameter> parameters = null)
+        public async Task<IDeliveryTypeListingResponse> GetTypesAsync(IEnumerable<IQueryParameter> parameters = null)
         {
-            return Task.FromResult<IDeliveryTypeListingResponse>(new FakeDeliveryTypeListingResponse());
+            HttpClient http = new HttpClient();
+            var response = await http.GetAsync("https://deliver.kontent.ai/975bf280-fd91-488c-994c-2f04416e5ee3/types");
+            var body = await response.Content.ReadAsStringAsync();
+
+            var jObject = JObject.Parse(body);
+
+            var types = jObject["types"].ToObject<List<FakeContentType>>();
+
+            var typesResponse = new FakeDeliveryTypeListingResponse
+            {
+                Types = types.ToList<IContentType>()                
+            };
+            return typesResponse;
         }
     }
 }
