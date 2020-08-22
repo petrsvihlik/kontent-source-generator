@@ -57,3 +57,4 @@ namespace Kentico.Kontent.SourceGenerator.Demo
 # Known Issues
 - Publishing / referencing `Kentico.Kontent.SourceGenerator` as a NuGet package doesn't work ATM
 - [Tests](https://github.com/petrsvihlik/kontent-source-generator/tree/master/src/Kentico.Kontent.SourceGenerator.Tests) don't work
+- **[[Roslyn Blocker]]** Currently, [it's not possible](https://github.com/dotnet/roslyn/issues/43903) to add transitive NuGet references and adding 1st-level references is [unhandy](https://github.com/dotnet/roslyn/blob/master/docs/features/source-generators.cookbook.md#use-functionality-from-nuget-packages). This is worked around by the combination of `<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>` and a [lightweight implementation of `IDeliveryClient`](https://github.com/petrsvihlik/kontent-source-generator/tree/master/src/Kentico.Kontent.SourceGenerator/Fakes) to avoid referencing `Kentico.Kontent.Delivery` with conflicting references
