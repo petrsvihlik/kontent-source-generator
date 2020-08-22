@@ -19,28 +19,31 @@ namespace Kentico.Kontent.SourceGenerator
     [Generator]
     public class KontentSourceGenerator : ISourceGenerator
     {
-        private const string attributeText = @"
+        private const string attributeName = "GenerateKontentModelsFor";
+
+        private string attributeText = $@"
 using System;
 namespace KenticoKontentModels
-{
+{{
     [System.AttributeUsage(System.AttributeTargets.Assembly, AllowMultiple=true)]
-    sealed class KontentModelsAttribute : Attribute
-    {
-        public string ProjectId { get; set; }
+    sealed class {attributeName}Attribute : Attribute
+    {{
+        public string ProjectId {{ get; set; }}
 
-        public KontentModelsAttribute(string projectId)
-        {
+        public {attributeName}Attribute(string projectId)
+        {{
             ProjectId = projectId;
-        }
-    }
-}
+        }}
+    }}
+}}
 ";
-
+        /// <inheritdoc/>
         public void Initialize(InitializationContext context)
         {
             // No init required
         }
 
+        /// <inheritdoc/>
         public void Execute(SourceGeneratorContext context)
         {
             try
@@ -62,42 +65,44 @@ namespace KenticoKontentModels
             }
         }
 
-        // By not inlining we make sure we can catch assembly loading errors when jitting this method
+        /// <remarks>By not inlining we make sure we can catch assembly loading errors when jitting this method.</remarks>
         [MethodImpl(MethodImplOptions.NoInlining)]
         private void ExecuteInternal(SourceGeneratorContext context)
         {
+            // Add the assembly attribute allowing specifying the project identifier
             context.AddSource("Kontent_Models_Attribute", SourceText.From(attributeText, Encoding.UTF8));
 
+            // Load project identifiers from assembly attributes
             IEnumerable<string> projectIds = GetProjectIdentifiers(context.Compilation);
 
-            foreach(var projectId in projectIds)
+            // Generate POCO models for all collected projects
+            foreach (var projectId in projectIds)
             {
                 GenerateModels(context, projectId);
             }
         }
 
-
         static IEnumerable<string> GetProjectIdentifiers(Compilation compilation)
         {
             // Get all KontentModels attributes
-            IEnumerable<SyntaxNode>? allNodes = compilation.SyntaxTrees.SelectMany(s => s.GetRoot().DescendantNodes());
-            IEnumerable<AttributeSyntax> allAttributes = allNodes.Where((d) => d.IsKind(SyntaxKind.Attribute)).OfType<AttributeSyntax>();
-            ImmutableArray<AttributeSyntax> attributes = allAttributes.Where(d => d.Name.ToString() == "KontentModels")
+            var allNodes = compilation.SyntaxTrees.SelectMany(s => s.GetRoot().DescendantNodes());
+            var allAttributes = allNodes.Where((d) => d.IsKind(SyntaxKind.Attribute)).OfType<AttributeSyntax>();
+            var attributes = allAttributes.Where(d => d.Name.ToString() == attributeName)
                 .ToImmutableArray();
 
-            IEnumerable<SemanticModel> models = compilation.SyntaxTrees.Select(st => compilation.GetSemanticModel(st));
-            foreach (AttributeSyntax att in attributes)
+            var models = compilation.SyntaxTrees.Select(st => compilation.GetSemanticModel(st));
+            foreach (var att in attributes)
             {
                 string projectId = "";
                 int index = 0;
 
                 if (att.ArgumentList is null) throw new Exception("Can't be null here");
 
-                SemanticModel m = compilation.GetSemanticModel(att.SyntaxTree);
+                var m = compilation.GetSemanticModel(att.SyntaxTree);
 
                 foreach (AttributeArgumentSyntax arg in att.ArgumentList.Arguments)
                 {
-                    ExpressionSyntax expr = arg.Expression;
+                    var expr = arg.Expression;
 
                     TypeInfo t = m.GetTypeInfo(expr);
                     Optional<object> v = m.GetConstantValue(expr);

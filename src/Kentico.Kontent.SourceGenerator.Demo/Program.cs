@@ -5,7 +5,7 @@ using Kentico.Kontent.Delivery.Builders.DeliveryClient;
 using KenticoKontentModels;
 using static Kentico.Kontent.SourceGenerator.Demo.Program;
 
-[assembly: KontentModels(ProjectId)]
+[assembly: GenerateKontentModelsFor(ProjectId)]
 
 namespace Kentico.Kontent.SourceGenerator.Demo
 {
