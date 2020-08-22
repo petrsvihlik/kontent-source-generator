@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Kentico.Kontent.SourceGenerator.Fakes
 {
-    public class FakeDeliveryTypeListingResponse : IDeliveryTypeListingResponse
+    public class LightDeliveryTypeListingResponse : IDeliveryTypeListingResponse
     {
         public IList<IContentType> Types { get; set; }
 

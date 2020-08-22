@@ -3,7 +3,7 @@ using System;
 
 namespace Kentico.Kontent.SourceGenerator.Fakes
 {
-    public class FakeContentTypeSystemAttributes : IContentTypeSystemAttributes
+    public class LightContentTypeSystemAttributes : IContentTypeSystemAttributes
     {
         public string Codename { get; set; }
 
@@ -13,7 +13,7 @@ namespace Kentico.Kontent.SourceGenerator.Fakes
 
         public string Name { get; set; }
 
-        public FakeContentTypeSystemAttributes(string codename, string id, DateTime lastModified, string name)
+        public LightContentTypeSystemAttributes(string codename, string id, DateTime lastModified, string name)
         {
             Codename = codename;
             Id = id;

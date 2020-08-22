@@ -8,8 +8,15 @@ using System.Threading.Tasks;
 
 namespace Kentico.Kontent.SourceGenerator.Fakes
 {
-    public class FakeDeliveryClient : IDeliveryClient
+    public class LightDeliveryClient : IDeliveryClient
     {
+        public LightDeliveryClient(DeliveryOptions options)
+        {
+            Options = options;
+        }
+
+        public DeliveryOptions Options { get; }
+
         public Task<IDeliveryElementResponse> GetContentElementAsync(string contentTypeCodename, string contentElementCodename)
         {
             throw new NotImplementedException();
@@ -48,14 +55,14 @@ namespace Kentico.Kontent.SourceGenerator.Fakes
         public async Task<IDeliveryTypeListingResponse> GetTypesAsync(IEnumerable<IQueryParameter> parameters = null)
         {
             HttpClient http = new HttpClient();
-            var response = await http.GetAsync("https://deliver.kontent.ai/975bf280-fd91-488c-994c-2f04416e5ee3/types");
+            var response = await http.GetAsync($"https://deliver.kontent.ai/{Options.ProjectId}/types");
             var body = await response.Content.ReadAsStringAsync();
 
             var jObject = JObject.Parse(body);
 
-            var types = jObject["types"].ToObject<List<FakeContentType>>();
+            var types = jObject["types"].ToObject<List<LightContentType>>();
 
-            var typesResponse = new FakeDeliveryTypeListingResponse
+            var typesResponse = new LightDeliveryTypeListingResponse
             {
                 Types = types.ToList<IContentType>()                
             };

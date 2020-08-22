@@ -123,7 +123,7 @@ namespace KenticoKontentModels
             {
                 DeliveryOptions = deliveryOptions,
             };
-            IDeliveryClient client = new FakeDeliveryClient();
+            IDeliveryClient client = new LightDeliveryClient(deliveryOptions);
 
             CodeGenerator generator = new CodeGenerator(Options.Create(codeGeneratorOptions), client, new RoslynOutputProvider(context));
             generator.RunAsync().GetAwaiter().GetResult();
