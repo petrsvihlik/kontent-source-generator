@@ -24,7 +24,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Kentico.Kontent.Delivery.Abstractions" Version="14.0.0-rc2" GeneratePathProperty="true" PrivateAssets="all" />
+    <PackageReference Include="Kentico.Kontent.Delivery.Abstractions" Version="14.0.0-rc2" />
     <PackageReference Include="Kentico.Kontent.ModelGenerator.Core" Version="6.0.0-rc1" />
     <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.0">
       <PrivateAssets>all</PrivateAssets>
@@ -34,16 +34,6 @@
     <!-- Package the generator in the analyzer directory of the nuget package -->
     <None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
   </ItemGroup>
-
-  <PropertyGroup>
-    <GetTargetPathDependsOn>$(GetTargetPathDependsOn);GetDependencyTargetPaths</GetTargetPathDependsOn>
-  </PropertyGroup>
-
-  <Target Name="GetDependencyTargetPaths">
-    <ItemGroup>
-      <TargetPathWithTargetPlatformMoniker Include="$(PkgKentico_Kontent_Delivery_Abstractions)\lib\netstandard2.0\Kentico.Kontent.Delivery.Abstractions.dll" />
-    </ItemGroup>
-  </Target>
 
 
 </Project>

@@ -21,7 +21,7 @@ namespace Kentico.Kontent.SourceGenerator
     {
         private const string attributeName = "GenerateKontentModelsFor";
 
-        private string attributeText = $@"
+        private readonly string attributeText = $@"
 using System;
 namespace KenticoKontentModels
 {{
@@ -52,7 +52,7 @@ namespace KenticoKontentModels
             }
             catch (Exception ex)
             {
-                string RLB(string s)
+                static string RLB(string s)
                 {
                     return s?.Replace("\n", "").Replace("\r", "");
                 }
