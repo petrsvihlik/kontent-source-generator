@@ -38,13 +38,13 @@ namespace KenticoKontentModels
 }}
 ";
         /// <inheritdoc/>
-        public void Initialize(InitializationContext context)
+        public void Initialize(GeneratorInitializationContext context)
         {
             // No init required
         }
 
         /// <inheritdoc/>
-        public void Execute(SourceGeneratorContext context)
+        public void Execute(GeneratorExecutionContext context)
         {
             try
             {
@@ -67,7 +67,7 @@ namespace KenticoKontentModels
 
         /// <remarks>By not inlining we make sure we can catch assembly loading errors when jitting this method.</remarks>
         [MethodImpl(MethodImplOptions.NoInlining)]
-        private void ExecuteInternal(SourceGeneratorContext context)
+        private void ExecuteInternal(GeneratorExecutionContext context)
         {
             // Add the assembly attribute allowing specifying the project identifier
             context.AddSource("Kontent_Models_Attribute", SourceText.From(attributeText, Encoding.UTF8));
@@ -116,16 +116,16 @@ namespace KenticoKontentModels
             }
         }
 
-        private static void GenerateModels(SourceGeneratorContext context, string projectId)
+        private static void GenerateModels(GeneratorExecutionContext context, string projectId)
         {
-            DeliveryOptions deliveryOptions = new DeliveryOptions() { ProjectId = projectId };
-            CodeGeneratorOptions codeGeneratorOptions = new CodeGeneratorOptions()
+            DeliveryOptions deliveryOptions = new() { ProjectId = projectId };
+            CodeGeneratorOptions codeGeneratorOptions = new()
             {
                 DeliveryOptions = deliveryOptions,
             };
             IDeliveryClient client = new LightDeliveryClient(deliveryOptions);
 
-            CodeGenerator generator = new CodeGenerator(Options.Create(codeGeneratorOptions), client, new RoslynOutputProvider(context));
+            CodeGenerator generator = new(Options.Create(codeGeneratorOptions), client, new RoslynOutputProvider(context));
             generator.RunAsync().GetAwaiter().GetResult();
         }
     }

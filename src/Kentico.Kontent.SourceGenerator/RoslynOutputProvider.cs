@@ -7,9 +7,9 @@ namespace Kentico.Kontent.SourceGenerator
 {
     public class RoslynOutputProvider : IOutputProvider
     {
-        private readonly SourceGeneratorContext _context;
+        private readonly GeneratorExecutionContext _context;
 
-        public RoslynOutputProvider(SourceGeneratorContext context)
+        public RoslynOutputProvider(GeneratorExecutionContext context)
         {
             _context = context;
         }

@@ -54,7 +54,7 @@ namespace Kentico.Kontent.SourceGenerator.Fakes
 
         public async Task<IDeliveryTypeListingResponse> GetTypesAsync(IEnumerable<IQueryParameter> parameters = null)
         {
-            HttpClient http = new HttpClient();
+            HttpClient http = new();
             var response = await http.GetAsync($"https://deliver.kontent.ai/{Options.ProjectId}/types");
             var body = await response.Content.ReadAsStringAsync();
 

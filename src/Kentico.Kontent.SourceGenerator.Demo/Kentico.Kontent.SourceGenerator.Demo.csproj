@@ -2,16 +2,16 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <LangVersion>preview</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Kentico.Kontent.Delivery" Version="14.0.0-rc2" />
+    <PackageReference Include="Kentico.Kontent.Delivery" Version="14.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Kentico.Kontent.SourceGenerator\Kentico.Kontent.SourceGenerator.csproj"  OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+    <ProjectReference Include="..\Kentico.Kontent.SourceGenerator\Kentico.Kontent.SourceGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
   </ItemGroup>
 
 </Project>
